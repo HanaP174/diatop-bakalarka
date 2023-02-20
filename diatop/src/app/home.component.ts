@@ -24,7 +24,7 @@ export class HomeComponent {
     http.get<TokenResponse>('/token').subscribe({
       next: value => {
         const token = value.token;
-        http.get('http://localhost:9000', {headers : new HttpHeaders().set('X-Auth-Token', token)})
+        http.get('http://localhost:9000/', {headers : new HttpHeaders().set('X-Auth-Token', token)})
           .subscribe(response => this.greeting = response);
       }
     });

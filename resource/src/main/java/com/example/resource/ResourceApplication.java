@@ -6,7 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.session.web.http.HeaderHttpSessionIdResolver;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,8 +36,20 @@ public class ResourceApplication {
               .and()
               .authorizeHttpRequests()
               .anyRequest()
-              .authenticated();
+              .authenticated()
+              .and()
+              .sessionManagement()
+              .sessionCreationPolicy(SessionCreationPolicy.NEVER);
       return http.build();
+    }
+//    @Bean
+//    public ReactiveSessionRepository<?> reactiveSessionRepository() {
+//      return new ReactiveMapSessionRepository(new ConcurrentHashMap<>());
+//    }
+
+    @Bean
+    public HeaderHttpSessionIdResolver httpSessionIdResolver() {
+      return new HeaderHttpSessionIdResolver("x-auth-token");
     }
   }
 

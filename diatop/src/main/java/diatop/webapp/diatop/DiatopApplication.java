@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +25,6 @@ import java.util.UUID;
 
 @SpringBootApplication
 @RestController
-//@EnableZuulProxy
 public class DiatopApplication {
   @GetMapping("/resource")
   public Map<String,Object> home() {
@@ -34,12 +34,13 @@ public class DiatopApplication {
     return model;
   }
 
-  @GetMapping("/user")
+  @RequestMapping("/user")
   public Principal user(Principal user) {
     return user;
   }
 
   @RequestMapping("/token")
+//  @CrossOrigin(origins = "*", allowedHeaders = "X-Requested-With")
   public Map<String,String> token(HttpSession session) {
     return Collections.singletonMap("token", session.getId());
   }
@@ -54,12 +55,9 @@ public class DiatopApplication {
         .httpBasic()
         .and()
         .authorizeHttpRequests()
-          .requestMatchers(new AntPathRequestMatcher("/index.html"),
-            new AntPathRequestMatcher("/"),
-            new AntPathRequestMatcher("/home"),
-            new AntPathRequestMatcher("/login")).permitAll()
-          .anyRequest().authenticated()
-          .and()
+              .requestMatchers("/index.html", "/", "/home", "/login").permitAll()
+        .anyRequest().authenticated()
+        .and()
         .csrf()
           .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
       return http.build();
