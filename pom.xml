@@ -12,7 +12,8 @@
         <java.version>17</java.version>
     </properties>
     <modules>
-      <module>diatop</module>
-      <module>resource</module>
+        <module>diatop</module>
+        <module>resource</module>
+        <module>gateway</module>
     </modules>
 </project>
