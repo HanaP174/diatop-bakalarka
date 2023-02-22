@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.web.http.HeaderHttpSessionIdResolver;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,11 +18,11 @@ import java.util.UUID;
 
 @SpringBootApplication
 @RestController
+@EnableRedisHttpSession
 public class ResourceApplication {
-
-  @RequestMapping("/")
   @CrossOrigin(origins = "*", maxAge = 3600,
-          allowedHeaders={"x-auth-token", "x-requested-with", "x-xsrf-token"})
+          allowedHeaders={"X-Auth-Token", "x-requested-with", "x-xsrf-token"})
+  @RequestMapping("/test")
   public Message home() {
     return new Message("Hello World");
   }
@@ -42,15 +43,11 @@ public class ResourceApplication {
               .sessionCreationPolicy(SessionCreationPolicy.NEVER);
       return http.build();
     }
-//    @Bean
-//    public ReactiveSessionRepository<?> reactiveSessionRepository() {
-//      return new ReactiveMapSessionRepository(new ConcurrentHashMap<>());
-//    }
+  }
 
-    @Bean
-    public HeaderHttpSessionIdResolver httpSessionIdResolver() {
-      return new HeaderHttpSessionIdResolver("x-auth-token");
-    }
+  @Bean
+  public HeaderHttpSessionIdResolver httpSessionIdResolver() {
+    return HeaderHttpSessionIdResolver.xAuthToken();
   }
 
   public static void main(String[] args) {

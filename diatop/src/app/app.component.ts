@@ -13,7 +13,7 @@ export class AppComponent {
     this.app.authenticate({ password: '', username: '' }, function empty() {});
   }
   logout() {
-    this.http.post('logout', {}).subscribe(() => {
+    this.http.post('/logout', {}).subscribe(() => {
       this.app.authenticated = false;
       this.router.navigateByUrl('/login');
     });

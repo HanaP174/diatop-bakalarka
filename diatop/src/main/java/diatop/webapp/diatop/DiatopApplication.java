@@ -1,6 +1,5 @@
 package diatop.webapp.diatop;
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -9,14 +8,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.Collections;
 import java.util.HashMap;
@@ -40,7 +39,6 @@ public class DiatopApplication {
   }
 
   @RequestMapping("/token")
-//  @CrossOrigin(origins = "*", allowedHeaders = "X-Requested-With")
   public Map<String,String> token(HttpSession session) {
     return Collections.singletonMap("token", session.getId());
   }
@@ -54,12 +52,13 @@ public class DiatopApplication {
       http
         .httpBasic()
         .and()
-        .authorizeHttpRequests()
-              .requestMatchers("/index.html", "/", "/home", "/login").permitAll()
+        .authorizeRequests()
+              .antMatchers("/index.html", "/", "/home", "/login", "/*.js", "/*.css").permitAll()
         .anyRequest().authenticated()
         .and()
         .csrf()
-          .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+          .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+              .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
       return http.build();
     }
   }
