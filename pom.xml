@@ -14,5 +14,6 @@
     <modules>
       <module>diatop</module>
       <module>resource</module>
+        <module>gateway</module>
     </modules>
 </project>
