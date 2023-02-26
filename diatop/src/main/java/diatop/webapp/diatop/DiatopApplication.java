@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,15 +24,13 @@ import java.util.Map;
 import java.util.UUID;
 
 @SpringBootApplication
-@RestController
+@Controller
 public class DiatopApplication {
-  @GetMapping("/resource")
-  public Map<String,Object> home() {
-    Map<String,Object> model = new HashMap<>();
-    model.put("id", UUID.randomUUID().toString());
-    model.put("content", "Hello World");
-    return model;
-  }
+//
+//  @GetMapping(value = "/{path:[^\\.]*}")
+//  public String redirect() {
+//    return "forward:/";
+//  }
 
   @RequestMapping("/user")
   public Principal user(Principal user) {

@@ -72,6 +72,11 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>target/static</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -90,12 +95,18 @@
                         <goals>
                             <goal>install-node-and-npm</goal>
                         </goals>
+                        <configuration>
+                            <workingDirectory>src/main/resources/frontend</workingDirectory>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>npm-install</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
+                        <configuration>
+                            <workingDirectory>src/main/resources/frontend</workingDirectory>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>npm-build</id>
@@ -103,7 +114,28 @@
                             <goal>npm</goal>
                         </goals>
                         <configuration>
+                            <workingDirectory>src/main/resources/frontend</workingDirectory>
                             <arguments>run-script build</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>ng</executable>
+                            <workingDirectory>src/main/resources/frontend</workingDirectory>
+                            <arguments>
+                                <argument>build</argument>
+                            </arguments>
                         </configuration>
                     </execution>
                 </executions>
