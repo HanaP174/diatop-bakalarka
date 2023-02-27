@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,8 +26,11 @@ import java.util.UUID;
 
 @SpringBootApplication
 @RestController
+@EnableRedisHttpSession
 public class DiatopApplication {
-  @GetMapping("/resource")
+  @GetMapping("/ui/resource")
+  @CrossOrigin(origins = "*", maxAge = 3600,
+          allowedHeaders={"X-Auth-Token", "x-requested-with", "x-xsrf-token"})
   public Map<String,Object> home() {
     Map<String,Object> model = new HashMap<>();
     model.put("id", UUID.randomUUID().toString());
@@ -38,11 +43,6 @@ public class DiatopApplication {
     return user;
   }
 
-//  @RequestMapping("/ui/token")
-//  public Map<String,String> token(HttpSession session) {
-//    return Collections.singletonMap("token", session.getId());
-//  }
-
   @Configuration
   @Order(SecurityProperties.DEFAULT_FILTER_ORDER)
   @EnableWebSecurity
@@ -50,15 +50,15 @@ public class DiatopApplication {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
       http
-        .httpBasic()
-        .and()
-        .authorizeRequests()
-              .antMatchers("/index.html", "/", "/home", "/login", "/*.js", "/*.css").permitAll()
-        .anyRequest().authenticated()
-        .and()
-        .csrf()
-          .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-              .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+//        .httpBasic()
+//        .and()
+//        .authorizeRequests()
+//              .antMatchers("/index.html", "/", "/home", "/login", "/*.js", "/*.css").permitAll()
+//        .anyRequest().authenticated()
+//        .and()
+//        .csrf()
+//          .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
       return http.build();
     }
   }

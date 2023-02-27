@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.web.http.HeaderHttpSessionIdResolver;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -33,11 +34,14 @@ public class ResourceApplication {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
       http
-              .cors()
-              .and()
-              .authorizeHttpRequests()
-              .anyRequest()
-              .authenticated()
+//              .cors()
+//              .and()
+//              .authorizeHttpRequests()
+//              .anyRequest()
+//              .authenticated()
+//              .and()
+              .csrf()
+              .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
               .and()
               .sessionManagement()
               .sessionCreationPolicy(SessionCreationPolicy.NEVER);
