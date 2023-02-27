@@ -22,7 +22,7 @@ import java.util.UUID;
 public class ResourceApplication {
   @CrossOrigin(origins = "*", maxAge = 3600,
           allowedHeaders={"X-Auth-Token", "x-requested-with", "x-xsrf-token"})
-  @RequestMapping("/test")
+  @RequestMapping("/resource/test")
   public Message home() {
     return new Message("Hello World");
   }

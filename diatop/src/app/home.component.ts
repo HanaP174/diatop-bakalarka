@@ -15,10 +15,10 @@ export class HomeComponent {
   greeting = new Message();
 
   constructor(private app: AppService, private http: HttpClient) {
-    http.get<{token: string, value: string}>('/token').subscribe({
+    http.get<{token: string, value: string}>('/ui/token').subscribe({
       next: value => {
         const token = value.token;
-        http.get<Message>('/test', {headers : new HttpHeaders().set('X-Auth-Token', token)})
+        http.get<Message>('/resource/test', {headers : new HttpHeaders().set('X-Auth-Token', token)})
           .subscribe(response => this.greeting = response);
       }
     });

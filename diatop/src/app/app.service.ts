@@ -15,7 +15,7 @@ export class AppService {
       authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)
     } : {});
 
-    this.http.get('/user', {headers: headers}).subscribe( {
+    this.http.get('/ui/user', {headers: headers}).subscribe( {
       next: response => {
         this.authenticated = response.hasOwnProperty('name');
         return callback && callback();

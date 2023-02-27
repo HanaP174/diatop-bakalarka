@@ -33,15 +33,15 @@ public class DiatopApplication {
     return model;
   }
 
-  @RequestMapping("/user")
+  @RequestMapping("/ui/user")
   public Principal user(Principal user) {
     return user;
   }
 
-  @RequestMapping("/token")
-  public Map<String,String> token(HttpSession session) {
-    return Collections.singletonMap("token", session.getId());
-  }
+//  @RequestMapping("/ui/token")
+//  public Map<String,String> token(HttpSession session) {
+//    return Collections.singletonMap("token", session.getId());
+//  }
 
   @Configuration
   @Order(SecurityProperties.DEFAULT_FILTER_ORDER)
