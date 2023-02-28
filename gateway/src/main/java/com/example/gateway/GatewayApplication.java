@@ -9,6 +9,7 @@ import org.springframework.cloud.gateway.support.tagsprovider.GatewayPathTagsPro
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -23,9 +24,12 @@ public class GatewayApplication {
 	@Bean
 	public RouteLocator myRoutes(RouteLocatorBuilder builder) {
 		return builder.routes()
-				.route(p -> p.path("/ui/**").uri("http://localhost:8081"))
-				.route(p -> p.path("/resource/**").uri("http://localhost:9000"))
-				.route(p -> p.path("/**").uri("http://localhost:4200"))
+				.route("resource", p -> p.path("/resource/**")
+						.filters(f -> f.rewritePath("/resource/(?<segment>.*)", "/${segment}"))
+						.uri("http://localhost:9000"))
+				.route("ui", p -> p.path("/ui/**")
+						.filters(f -> f.rewritePath("/ui/(?<segment>.*)", "/${segment}"))
+						.uri("http://localhost:8081"))
 				.build();
 	}
 
