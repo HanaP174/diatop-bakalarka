@@ -5,21 +5,27 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
-import org.springframework.cloud.gateway.support.tagsprovider.GatewayPathTagsProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpHeaders;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
+import java.security.Principal;
 
 @SpringBootApplication
+@RestController
 public class GatewayApplication {
+
+  @RequestMapping("/user")
+  public Principal user(Principal user) {
+    return user;
+  }
 
 	@Bean
 	public RouteLocator myRoutes(RouteLocatorBuilder builder) {
@@ -34,12 +40,27 @@ public class GatewayApplication {
 	}
 
 	@Configuration
+  @Order(SecurityProperties.DEFAULT_FILTER_ORDER)
 	@EnableWebSecurity
 	protected static class SecurityConfiguration {
 		@Bean
 		public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-			http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
-			return http.build();
+			http
+        .httpBasic()
+        .and()
+//        .logout()
+//        .and()
+        .authorizeRequests()
+        .antMatchers("/index.html", "/", "/login", "/*.js", "/*.css").permitAll()
+        .anyRequest().authenticated()
+        .and()
+        .csrf()
+        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+        .and()
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+        .and()
+        .formLogin().loginPage("/login").permitAll(); // todo disabled spring security login after reload
+      return http.build();
 		}
 	}
 
