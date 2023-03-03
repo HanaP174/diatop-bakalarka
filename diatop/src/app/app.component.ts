@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Router} from "@angular/router";
+import {Component} from "@angular/core";
 import {AppService} from "./app.service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-root',
@@ -9,14 +8,21 @@ import {AppService} from "./app.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private app: AppService, private http: HttpClient, private router: Router) {
-    this.app.authenticate({ password: '', username: '' }, function empty() {});
+
+  greetingUI = {id: '', content: ''};
+  greetingResource = {id: '', content: ''};
+
+  constructor(private app: AppService,
+              private http: HttpClient) {
+    http.get<{id: '', content: ''}>('/resource/test')
+        .subscribe(response => this.greetingResource = response);
+    http.get<{id: '', content: ''}>('/ui/resource')
+        .subscribe(response => this.greetingUI = response);
   }
+
   logout() {
     this.http.post('/logout', {}).subscribe(() => {
       this.app.authenticated = false;
-      this.router.navigateByUrl('/login');
     });
   }
-
 }

@@ -13,10 +13,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -25,7 +23,7 @@ import java.util.UUID;
 @RestController
 @EnableRedisHttpSession
 public class DiatopApplication {
-  @GetMapping("/ui/resource")
+  @GetMapping("/resource")
   @CrossOrigin(origins = "*", maxAge = 3600,
           allowedHeaders={"X-Auth-Token", "x-requested-with", "x-xsrf-token"})
   public Map<String,Object> home() {
@@ -35,11 +33,6 @@ public class DiatopApplication {
     return model;
   }
 
-  @RequestMapping("/ui/user")
-  public Principal user(Principal user) {
-    return user;
-  }
-
   @Configuration
   @Order(SecurityProperties.DEFAULT_FILTER_ORDER)
   @EnableWebSecurity
@@ -47,14 +40,6 @@ public class DiatopApplication {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
       http
-//        .httpBasic()
-//        .and()
-//        .authorizeRequests()
-//              .antMatchers("/index.html", "/", "/home", "/login", "/*.js", "/*.css").permitAll()
-//        .anyRequest().authenticated()
-//        .and()
-//        .csrf()
-//          .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
       return http.build();
     }
