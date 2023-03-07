@@ -40,6 +40,12 @@ public class DiatopApplication {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
       http
+              .httpBasic()
+              .and()
+              .authorizeRequests()
+              .antMatchers("/index.html", "/app.html", "/").permitAll()
+              .anyRequest().hasAnyRole("USER")
+              .and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
       return http.build();
     }
