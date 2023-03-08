@@ -1,10 +1,12 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {UserPrincipal} from "./model/gateway.model";
 
 @Injectable()
 export class AppService {
 
   authenticated = false;
+  isAdmin = false;
 
   constructor(private http: HttpClient) {
   }
@@ -15,9 +17,10 @@ export class AppService {
       authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)
     } : {});
 
-    this.http.get('/user', {headers: headers}).subscribe( {
+    this.http.get<UserPrincipal>('/user', {headers: headers}).subscribe( {
       next: response => {
-        this.authenticated = response.hasOwnProperty('name');
+        this.authenticated = response && response.name != null;
+        this.isAdmin = this.authenticated && response.roles.length > 0 && response.roles.indexOf('ADMIN') > -1;
         return callback && callback();
       },
       error: error => {

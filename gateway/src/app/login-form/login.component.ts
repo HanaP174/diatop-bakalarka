@@ -1,7 +1,5 @@
 import {Component} from "@angular/core";
 import {AppService} from "../app.service";
-import {HttpClient} from "@angular/common/http";
-import {Router} from "@angular/router";
 
 @Component({
   templateUrl: './login.component.html'
@@ -14,7 +12,7 @@ export class LoginComponent {
 
   login() {
     this.app.authenticate(this.credentials, () => {
-      window.location.href = '/ui/';
+      this.app.isAdmin ? window.location.href = '/admin/' : window.location.href = '/ui/';
     });
     return false;
   }
