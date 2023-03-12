@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {UserPrincipal} from "./model/gateway.model";
 
 @Injectable()
-export class AppService {
+export class LoginService {
 
   authenticated = false;
   isAdmin = false;

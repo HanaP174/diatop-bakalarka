@@ -1,12 +1,10 @@
 import {Injectable, NgModule} from "@angular/core";
 import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from './app.component';
+import { LoginComponent } from './login.component';
 import {HTTP_INTERCEPTORS, HttpClientModule, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
 import {RouterLink, RouterLinkActive} from "@angular/router";
-import {AppService} from "./app.service";
-import {LoginComponent} from "./login-form/login.component";
+import {LoginService} from "./login.service";
 import {FormsModule} from "@angular/forms";
-import {AppRoutingModule} from "./app-routing.module";
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -21,7 +19,6 @@ export class XhrInterceptor implements HttpInterceptor {
 
 @NgModule({
   declarations: [
-    AppComponent,
     LoginComponent
   ],
   imports: [
@@ -29,10 +26,9 @@ export class XhrInterceptor implements HttpInterceptor {
     FormsModule,
     HttpClientModule,
     RouterLinkActive,
-    RouterLink,
-    AppRoutingModule
+    RouterLink
   ],
-  providers: [AppService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
-  bootstrap: [AppComponent]
+  providers: [LoginService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
+  bootstrap: [LoginComponent]
 })
-export class AppModule { }
+export class LoginModule { }
