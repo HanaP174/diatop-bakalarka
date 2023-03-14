@@ -10,18 +10,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.server.context.WebSessionServerSecurityContextRepository;
 import org.springframework.security.web.server.csrf.CookieServerCsrfTokenRepository;
-import org.springframework.session.ReactiveSessionRepository;
-import org.springframework.session.Session;
 import org.springframework.session.config.annotation.web.server.EnableSpringWebSession;
-import org.springframework.session.data.redis.config.annotation.web.server.EnableRedisWebSession;
-import org.springframework.session.web.server.session.SpringSessionWebSessionStore;
-import org.springframework.web.server.session.DefaultWebSessionManager;
-import org.springframework.web.server.session.WebSessionManager;
 
 @Configuration
 @EnableWebFluxSecurity
-@EnableRedisWebSession
+@EnableSpringWebSession
 public class SecurityConfiguration {
 
   @Bean
@@ -46,22 +41,19 @@ public class SecurityConfiguration {
       .httpBasic()
       .and()
       .authorizeExchange()
-      .pathMatchers("/index.html", "/", "/login", "/*.js", "/*.css", "/favicon.ico").permitAll()
+      .pathMatchers("/index.html", "/", "/login", "/*.js", "/*.css", "/favicon.ico", "/*.map").permitAll()
       .anyExchange().authenticated()
       .and()
       .formLogin().disable()
-      .csrf().csrfTokenRepository(CookieServerCsrfTokenRepository.withHttpOnlyFalse());
+      .csrf().csrfTokenRepository(CookieServerCsrfTokenRepository.withHttpOnlyFalse())
+      .and().securityContextRepository(webSessionServerSecurityContextRepository());
 
     return http.build();
   }
 
   @Bean
-  public WebSessionManager webSessionManager(ReactiveSessionRepository<? extends Session> repository) {
-    SpringSessionWebSessionStore<? extends Session> sessionStore = new SpringSessionWebSessionStore<>(repository);
-    DefaultWebSessionManager manager = new DefaultWebSessionManager();
-    manager.setSessionStore(sessionStore);
-
-    return manager;
+  public WebSessionServerSecurityContextRepository webSessionServerSecurityContextRepository() {
+    return new WebSessionServerSecurityContextRepository();
   }
 
   @Bean
