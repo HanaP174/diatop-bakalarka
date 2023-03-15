@@ -21,8 +21,8 @@ import java.util.UUID;
 @RestController
 @EnableRedisHttpSession
 public class ResourceApplication {
-  @CrossOrigin(origins = "*", maxAge = 3600,
-          allowedHeaders={"X-Auth-Token", "x-requested-with", "x-xsrf-token"})
+//  @CrossOrigin(origins = "*", maxAge = 3600,
+//          allowedHeaders={"X-Auth-Token", "x-requested-with", "x-xsrf-token"})
   @RequestMapping("/test")
   public Message home() {
     return new Message("Hello World");
@@ -34,12 +34,6 @@ public class ResourceApplication {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
       http
-//              .cors()
-//              .and()
-//              .authorizeHttpRequests()
-//              .anyRequest()
-//              .authenticated()
-//              .and()
               .csrf()
               .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
               .and()
@@ -47,11 +41,6 @@ public class ResourceApplication {
               .sessionCreationPolicy(SessionCreationPolicy.NEVER);
       return http.build();
     }
-  }
-
-  @Bean
-  public HeaderHttpSessionIdResolver httpSessionIdResolver() {
-    return HeaderHttpSessionIdResolver.xAuthToken();
   }
 
   public static void main(String[] args) {

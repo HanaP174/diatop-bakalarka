@@ -20,7 +20,7 @@ export class LoginService {
     this.http.get<UserPrincipal>('/user', {headers: headers}).subscribe( {
       next: response => {
         this.authenticated = response && response.name != null;
-        this.isAdmin = this.authenticated && response.roles.length > 0 && response.roles.indexOf('ADMIN') > -1;
+        this.isAdmin = this.authenticated && response.roles.length > 0 && response.roles.indexOf('ROLE_ADMIN') > -1;
         return callback && callback();
       },
       error: error => {
