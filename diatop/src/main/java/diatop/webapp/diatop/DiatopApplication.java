@@ -2,18 +2,7 @@ package diatop.webapp.diatop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,24 +24,6 @@ public class DiatopApplication {
     return model;
   }
 
-  @Configuration
-  @Order(SecurityProperties.DEFAULT_FILTER_ORDER)
-  @EnableWebSecurity
-  protected static class SecurityConfiguration {
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-      http
-        .authorizeRequests()
-        .antMatchers("/index.html", "/app.html", "/", "/*.js", "/*.css", "/favicon.ico", "/*.map").permitAll()
-        .antMatchers("/ui/**").hasRole("USER")
-        .and()
-        .csrf()
-        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-        .and()
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
-      return http.build();
-    }
-  }
   public static void main(String[] args) {
         SpringApplication.run(DiatopApplication.class, args);
     }
