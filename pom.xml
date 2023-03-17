@@ -16,5 +16,6 @@
         <module>resource</module>
         <module>gateway</module>
         <module>admin</module>
+        <module>model</module>
     </modules>
 </project>
