@@ -34,19 +34,19 @@ public class UserDetailsService implements ReactiveUserDetailsService {
   }
 
   // todo just for testing
-  @PostConstruct
-  private void initUsers() {
-    userRepository.deleteAll().subscribe();
-    com.diatop.model.user.User admin = new com.diatop.model.user.User("admin",
-      passwordEncoder().encode("pass"),
-      "123456/1030",
-      "email",
-      "ADMIN");
-    com.diatop.model.user.User user = new com.diatop.model.user.User("user",
-      passwordEncoder().encode("pass"),
-      "123456/1031",
-      "email",
-      "USER");
-    userRepository.saveAll(Arrays.asList(admin, user)).subscribe();
-  }
+//  @PostConstruct
+//  private void initUsers() {
+//    userRepository.deleteAll().subscribe();
+//    com.diatop.model.user.User admin = new com.diatop.model.user.User("admin",
+//      passwordEncoder().encode("pass"),
+//      "123456/1030",
+//      "email",
+//      "ADMIN");
+//    com.diatop.model.user.User user = new com.diatop.model.user.User("user",
+//      passwordEncoder().encode("pass"),
+//      "123456/1031",
+//      "email",
+//      "USER");
+//    userRepository.saveAll(Arrays.asList(admin, user)).subscribe();
+//  }
 }

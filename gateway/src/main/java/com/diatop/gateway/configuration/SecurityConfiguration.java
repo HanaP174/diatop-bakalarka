@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UserDetailsRepositoryReactiveAuthenticationManager;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
@@ -15,6 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.context.WebSessionServerSecurityContextRepository;
 import org.springframework.security.web.server.csrf.CookieServerCsrfTokenRepository;
+import org.springframework.security.web.server.util.matcher.NegatedServerWebExchangeMatcher;
+import org.springframework.security.web.server.util.matcher.ServerWebExchangeMatchers;
 import org.springframework.session.config.annotation.web.server.EnableSpringWebSession;
 
 @Configuration
@@ -33,7 +36,9 @@ public class SecurityConfiguration {
       .httpBasic()
       .and()
       .authorizeExchange()
-      .pathMatchers("/index.html", "/", "/login", "/*.js", "/*.css", "/favicon.ico", "/*.map").permitAll()
+      .pathMatchers("/", "/index.html", "/registration", "/login", "/*.js", "/*.css", "/favicon.ico",
+        "/*.map").permitAll()
+      .pathMatchers(HttpMethod.POST, "/addUser").permitAll()
       .anyExchange().authenticated()
       .and()
       .formLogin().disable()

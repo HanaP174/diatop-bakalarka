@@ -11,6 +11,7 @@ public class User {
     @Id
     private Long id;
 
+    // todo login with email only?
     private String username;
 
     private String password;

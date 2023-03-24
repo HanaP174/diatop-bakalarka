@@ -1,6 +1,11 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {UserPrincipal} from "./model/gateway.model";
+import {UserPrincipal} from "../model/gateway.model";
+
+export class Credentials {
+  username: string = '';
+  password: string = '';
+}
 
 @Injectable()
 export class LoginService {
@@ -11,7 +16,7 @@ export class LoginService {
   constructor(private http: HttpClient) {
   }
 
-  authenticate(credentials: { password: string; username: string }, callback: () => void) {
+  authenticate(credentials: Credentials, callback: () => void) {
 
     const headers = new HttpHeaders(credentials ? {
       authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)
@@ -27,7 +32,6 @@ export class LoginService {
         console.log(error.toString());
       }
     });
-
   }
 
 }

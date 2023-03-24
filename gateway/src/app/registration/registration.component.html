@@ -1,0 +1,36 @@
+<div class="registration-form-wrapper">
+  <form [formGroup]="formRegistration" (submit)="register()">
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Uživateľské meno</mat-label>
+        <input matInput placeholder="meno" formControlName="username" required/>
+        <!--      <mat-error *ngIf="credentials.username">{{getErrorMessage()}}</mat-error>-->
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Heslo</mat-label>
+        <input type="hide" matInput placeholder="heslo" formControlName="password" required/>
+        <!--      <mat-error *ngIf="credentials.password">{{getErrorMessage()}}</mat-error>-->
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="hide" matInput placeholder="email" formControlName="email" required/>
+        <!--      <mat-error *ngIf="credentials.password">{{getErrorMessage()}}</mat-error>-->
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Rodné číslo</mat-label>
+        <input type="hide" matInput placeholder="rodné číslo" formControlName="birthNumber" required/>
+        <!--      <mat-error *ngIf="credentials.password">{{getErrorMessage()}}</mat-error>-->
+      </mat-form-field>
+    </div>
+    <div class="login-button">
+      <button mat-raised-button color="primary">Registrovať</button>
+    </div>
+    <!--      todo EMAIL verification? CHECKBOX -> agree with conditions, some other things, ask mother-->
+  </form>
+</div>

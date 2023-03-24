@@ -1,0 +1,25 @@
+<div class="login-form-wrapper">
+  <form [formGroup]="formLogin" (submit)="login()">
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Uživateľské meno</mat-label>
+        <input matInput placeholder="meno" formControlName="username" required/>
+        <mat-error *ngIf="credentials.username">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Heslo</mat-label>
+        <input type="hide" matInput placeholder="heslo" formControlName="password" required/>
+        <mat-error *ngIf="credentials.password">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="registration-link">
+      <a mat-button routerLink="/registration">Registrovať</a>
+    </div>
+    <div class="login-button">
+      <button mat-raised-button color="primary">Prihlásiť</button>
+    </div>
+  </form>
+</div>
+
