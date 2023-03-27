@@ -43,8 +43,8 @@ public class SecurityConfiguration {
       .and()
       .formLogin().disable()
       .authenticationManager(authenticationManager())
-      .csrf().csrfTokenRepository(CookieServerCsrfTokenRepository.withHttpOnlyFalse())
-      .and().securityContextRepository(webSessionServerSecurityContextRepository());
+      .csrf().disable()
+      .securityContextRepository(webSessionServerSecurityContextRepository());
 
     return http.build();
   }

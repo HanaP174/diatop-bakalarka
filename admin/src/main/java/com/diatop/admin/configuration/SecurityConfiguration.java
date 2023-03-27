@@ -6,27 +6,27 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.server.context.NoOpServerSecurityContextRepository;
+import org.springframework.security.web.server.csrf.CookieServerCsrfTokenRepository;
 
 @Configuration
-@Order(SecurityProperties.DEFAULT_FILTER_ORDER)
-@EnableWebSecurity
+@EnableWebFluxSecurity
 public class SecurityConfiguration {
 
   @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+  public SecurityWebFilterChain filterChain(ServerHttpSecurity http) {
     http
-      .authorizeRequests()
-      .antMatchers("/index.html", "/",  "/*.js", "/*.css", "/favicon.ico", "/*.map").permitAll()
-      .antMatchers("/admin/**").hasRole("ADMIN")
-      .anyRequest().authenticated()
-      .and()
-      .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER)
+      .authorizeExchange()
+      .pathMatchers("/**", "/admin/**").hasRole("ADMIN")
       .and()
       .csrf()
-      .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+      .csrfTokenRepository(CookieServerCsrfTokenRepository.withHttpOnlyFalse());
     return http.build();
   }
 }
