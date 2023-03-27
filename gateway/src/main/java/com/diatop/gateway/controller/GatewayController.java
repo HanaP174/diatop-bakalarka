@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import java.security.Principal;
 
@@ -26,7 +27,8 @@ public class GatewayController {
   }
 
   @PostMapping("/addUser")
-  public void addUser(@RequestBody UserDto user) {
-    userService.addUser(user);
+  @ResponseBody
+  public Mono<Boolean> addUser(@RequestBody UserDto user) {
+    return userService.addUser(user);
   }
 }

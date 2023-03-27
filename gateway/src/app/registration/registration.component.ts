@@ -12,6 +12,7 @@ export class RegistrationComponent implements OnInit {
 
   user: UserDto = new UserDto();
   formRegistration: FormGroup = new FormGroup({});
+  userExists = false;
 
   constructor(private formBuilder: FormBuilder,
               private http: HttpClient,
@@ -28,6 +29,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   register() {
+    this.userExists = false;
     this.mapUserFromForm();
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -36,8 +38,12 @@ export class RegistrationComponent implements OnInit {
       error: error => {
         console.log('Error:', error);
       },
-      next: () => {
-        this.router.navigateByUrl('/login');
+      next: response => {
+        if (response) {
+          this.router.navigateByUrl('/login');
+        } else {
+          this.userExists = true;
+        }
       }
     });
   }

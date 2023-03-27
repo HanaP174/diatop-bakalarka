@@ -13,6 +13,7 @@ import {AppRoutingModule} from "./app-routing.module";
 import {MatCardModule} from "@angular/material/card";
 import {RouterModule} from "@angular/router";
 import {AppComponent} from "./app.component";
+import {MatIconModule} from "@angular/material/icon";
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -31,19 +32,20 @@ export class XhrInterceptor implements HttpInterceptor {
     LoginComponent,
     RegistrationComponent
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    RouterModule,
-    HttpClientModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    AppRoutingModule,
-    MatCardModule
-  ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        RouterModule,
+        HttpClientModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        AppRoutingModule,
+        MatCardModule,
+        MatIconModule
+    ],
   providers: [LoginService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })

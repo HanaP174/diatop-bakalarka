@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 @Service
 public class UserService {
@@ -20,10 +21,18 @@ public class UserService {
   }
 
   // todo should check if user with the same email doesn't exist already
-  public void addUser(UserDto userDto) {
-    User user = new User();
-    mapUserDtoToUser(userDto, user);
-    userRepository.save(user).subscribe();
+  public Mono<Boolean> addUser(UserDto userDto) {
+    return userRepository.findUserByEmail(userDto.getEmail())
+      .hasElement()
+      .flatMap(userExists -> {
+        if (userExists) {
+          return Mono.just(false);
+        } else {
+          User user = new User();
+          mapUserDtoToUser(userDto, user);
+          return userRepository.save(user).map(createdUser -> true);
+        }
+      });
   }
 
   private void mapUserDtoToUser(UserDto userDto, User user) {

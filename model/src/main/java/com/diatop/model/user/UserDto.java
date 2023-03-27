@@ -2,6 +2,7 @@ package com.diatop.model.user;
 
 public class UserDto {
 
+    // todo email as username?
     private String username;
 
     private String password;

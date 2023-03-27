@@ -1,5 +1,9 @@
 <div class="registration-form-wrapper">
-  <form [formGroup]="formRegistration" (submit)="register()">
+  <form class="form" [formGroup]="formRegistration" (submit)="register()">
+    <div *ngIf="userExists" class="error">
+      <mat-icon>warning</mat-icon>
+      <div>Užívateľ s týmto emailom je registrovaný!</div>
+    </div>
     <div>
       <mat-form-field appearance="outline">
         <mat-label>Uživateľské meno</mat-label>
