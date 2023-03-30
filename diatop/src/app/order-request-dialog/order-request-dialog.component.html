@@ -1,0 +1,80 @@
+<h2 mat-dialog-title class="title bold">Bol som u doktora</h2>
+
+<mat-dialog-content [formGroup]="orderRequestForm">
+
+  <div class="order-wrapper">
+    <div class="row top-padding line-wrapper">
+      <mat-form-field class="date-picker" appearance="outline">
+          <mat-label>Dátum návštevy</mat-label>
+          <input matInput formControlName="appointmentDate" [matDatepicker]="appointmentPicker" required>
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="appointmentPicker"></mat-datepicker-toggle>
+          <mat-datepicker #appointmentPicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="date-picker" appearance="outline">
+          <mat-label>Dátum doručenia</mat-label>
+          <input matInput formControlName="deliveryDate"
+                 [matDatepickerFilter]="weekendsDatesFilter"
+                 [matDatepicker]="deliveryPicker"
+                 [min]="minDeliveryDate" required>
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="deliveryPicker"></mat-datepicker-toggle>
+          <mat-datepicker #deliveryPicker></mat-datepicker>
+      </mat-form-field>
+
+    </div>
+
+
+    <div class="top-padding">
+      <mat-checkbox [checked]="differentAddress"
+                    (change)="differentAddress = $event.checked">Iná adresa doručenia</mat-checkbox>
+    </div>
+
+    <ng-container *ngIf="differentAddress">
+      <div class="row line-wrapper top-padding">
+        <mat-form-field class="col-sm-30" appearance="outline">
+          <mat-label>Ulica</mat-label>
+          <input matInput formControlName="street" [required]="differentAddress">
+        </mat-form-field>
+        <mat-form-field class="col-sm-30" appearance="outline">
+          <mat-label>Číslo ulice</mat-label>
+          <input matInput formControlName="streetNumber" [required]="differentAddress">
+        </mat-form-field>
+      </div>
+
+      <div class="row line-wrapper top-padding">
+        <mat-form-field class="col-sm-30" appearance="outline">
+          <mat-label>Mesto</mat-label>
+          <input matInput formControlName="city" [required]="differentAddress">
+        </mat-form-field>
+        <mat-form-field class="col-sm-30" appearance="outline">
+          <mat-label>PSČ</mat-label>
+          <input matInput formControlName="zipCode" [required]="differentAddress">
+        </mat-form-field>
+      </div>
+    </ng-container>
+
+    <div class="top-padding">
+      <mat-checkbox [checked]="personalDelivery"
+                    (change)="personalDelivery = $event.checked">Osobné doručenie</mat-checkbox>
+    </div>
+
+    <div *ngIf="personalDelivery" class="error">
+      <mat-icon>warning</mat-icon>
+      <div>Osobné doručenie je možné len v okolí Bratislavy.</div>
+    </div>
+
+    <div class="top-padding line-wrapper row">
+      <mat-form-field class="note" appearance="outline">
+        <mat-label>Poznámka</mat-label>
+        <textarea matInput placeholder="Poznámka" formControlName="note"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-raised-button (click)="close()">Close</button>
+    <button mat-raised-button color="primary" (click)="save()">Save</button>
+</mat-dialog-actions>

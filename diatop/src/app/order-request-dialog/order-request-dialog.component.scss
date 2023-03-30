@@ -1,0 +1,39 @@
+order-request-dialog {
+  .title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  mat-dialog-content {
+    width: 35rem;
+  }
+
+  .date-picker {
+    width: 43%;
+  }
+
+  .note {
+    width: 100%;
+  }
+
+  .line-wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .order-wrapper {
+    height: 100%;
+    width: 100%;
+    display: block;
+  }
+
+  .top-padding {
+    padding-top: 2rem;
+  }
+
+  .error {
+    display: flex;
+    align-items: center;
+    color: red;
+  }
+}
