@@ -26,26 +26,26 @@ public class UserDetailsService implements ReactiveUserDetailsService {
 
   @Override
   public Mono<UserDetails> findByUsername(String username) {
-    return userRepository.findUserByUsername(username).map(user -> User.builder()
-      .username(user.getUsername())
+    return userRepository.findUserByEmail(username).map(user -> User.builder()
+      .username(user.getEmail())
       .password(user.getPassword())
       .roles(user.getRole())
       .build());
   }
 
-  // todo just for testing
+//  // todo just for testing
 //  @PostConstruct
 //  private void initUsers() {
 //    userRepository.deleteAll().subscribe();
-//    com.diatop.model.user.User admin = new com.diatop.model.user.User("admin",
+//    com.diatop.model.user.User admin = new com.diatop.model.user.User(
 //      passwordEncoder().encode("pass"),
 //      "123456/1030",
-//      "email",
+//      "admin@admin.com",
 //      "ADMIN");
-//    com.diatop.model.user.User user = new com.diatop.model.user.User("user",
+//    com.diatop.model.user.User user = new com.diatop.model.user.User(
 //      passwordEncoder().encode("pass"),
 //      "123456/1031",
-//      "email",
+//      "user@user.com",
 //      "USER");
 //    userRepository.saveAll(Arrays.asList(admin, user)).subscribe();
 //  }

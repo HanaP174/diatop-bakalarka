@@ -3,6 +3,7 @@ package com.diatop.model.user;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
+import reactor.util.annotation.NonNull;
 
 @Data
 @Table(name = "users")
@@ -11,22 +12,20 @@ public class User {
     @Id
     private Long id;
 
-    // todo login with email only?
-    private String username;
+    @NonNull
+    private String email;
 
     private String password;
 
     private String birthNumber;
 
-    private String email;
 
     private String role;
 
     public User() {
     }
 
-    public User(String username, String password, String birthNumber, String email, String role) {
-        this.username = username;
+    public User(String password, String birthNumber, String email, String role) {
         this.password = password;
         this.birthNumber = birthNumber;
         this.email = email;
@@ -39,14 +38,6 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getPassword() {
@@ -85,7 +76,6 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", birthNumber='" + birthNumber + '\'' +
                 ", email='" + email + '\'' +

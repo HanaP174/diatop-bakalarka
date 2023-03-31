@@ -4,7 +4,6 @@ export class UserPrincipal {
 }
 
 export class UserDto {
-  username: string = '';
   password: string = '';
   birthNumber: string = '';
   email: string = '';

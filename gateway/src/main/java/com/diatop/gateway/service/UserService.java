@@ -20,7 +20,6 @@ public class UserService {
     return new BCryptPasswordEncoder();
   }
 
-  // todo should check if user with the same email doesn't exist already
   public Mono<Boolean> addUser(UserDto userDto) {
     return userRepository.findUserByEmail(userDto.getEmail())
       .hasElement()
@@ -37,7 +36,6 @@ public class UserService {
 
   private void mapUserDtoToUser(UserDto userDto, User user) {
     user.setEmail(userDto.getEmail());
-    user.setUsername(userDto.getUsername());
     // todo this is not nice, enum will be better
     user.setRole("USER");
     user.setBirthNumber(userDto.getBirthNumber());

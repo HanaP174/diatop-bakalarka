@@ -2,22 +2,11 @@ package com.diatop.model.user;
 
 public class UserDto {
 
-    // todo email as username?
-    private String username;
-
     private String password;
 
     private String birthNumber;
 
     private String email;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getPassword() {
         return password;
