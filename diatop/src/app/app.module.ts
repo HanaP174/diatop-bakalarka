@@ -1,8 +1,7 @@
-import {Injectable, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import {HTTP_INTERCEPTORS, HttpClientModule, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
-import {HomeComponent} from "./home.component";
+import {HttpClientModule} from "@angular/common/http";
 import {AppService} from "./app.service";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
@@ -18,12 +17,15 @@ import {MatInputModule} from "@angular/material/input";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
+import {HomeComponent} from "./home/home.component";
+import {RouterOutlet} from "@angular/router";
+import {AppRoutingModule} from "./app-routing.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    OrderRequestDialogComponent
+    OrderRequestDialogComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,8 @@ import {MatNativeDateModule} from "@angular/material/core";
     MatCheckboxModule,
     FormsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    AppRoutingModule
   ],
   providers: [AppService],
   bootstrap: [AppComponent],

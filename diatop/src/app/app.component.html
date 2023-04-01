@@ -1,18 +1,1 @@
-<mat-toolbar>
-  <div class="title">
-    <span>Diatop</span>
-  </div>
-  <span class="example-spacer"></span>
-  <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon"
-          [matMenuTriggerFor]="menu">
-    <mat-icon>menu</mat-icon>
-  </button>
-</mat-toolbar>
-<mat-tab-group class="tabs">
-  <mat-tab label="Najnovší príspevok"></mat-tab>
-  <mat-tab label="História"></mat-tab>
-</mat-tab-group>
-<mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="openRequestDialog()">Bol som u doktora</button>
-  <button mat-menu-item>Môj účet</button>
-</mat-menu>
+<router-outlet></router-outlet>

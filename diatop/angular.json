@@ -27,6 +27,7 @@
             "styles": [
               "src/custom-theme.scss",
               "src/styles.css",
+              "src/app/home/home.component.scss",
               "src/app/order-request-dialog/order-request-dialog.component.scss"
             ],
             "scripts": []

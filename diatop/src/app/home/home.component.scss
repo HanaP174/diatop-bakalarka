@@ -1,0 +1,21 @@
+home {
+  .order {
+    float: right;
+    padding-top: 0.7rem;
+    padding-right: 1.5rem;
+    color: #00b60d;
+    cursor: pointer;
+  }
+
+  .title {
+    padding-left: 5rem;
+  }
+
+  .toolbar {
+    flex: 1 1 auto;
+  }
+
+  .tabs {
+    width: 50%;
+  }
+}
