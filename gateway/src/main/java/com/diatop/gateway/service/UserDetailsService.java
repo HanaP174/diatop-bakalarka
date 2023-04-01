@@ -10,9 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-import javax.annotation.PostConstruct;
-import java.util.Arrays;
-
 @Service
 public class UserDetailsService implements ReactiveUserDetailsService {
 

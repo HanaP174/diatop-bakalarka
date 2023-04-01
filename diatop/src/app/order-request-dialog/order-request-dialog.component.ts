@@ -1,6 +1,6 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, Inject, OnInit} from "@angular/core";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Order} from "../model/diatop.model";
 
 @Component({
@@ -15,9 +15,12 @@ export class OrderRequestDialogComponent implements OnInit {
   minDeliveryDate = new Date();
 
   private order = new Order();
+  private readonly userId: number = 0;
 
   constructor(private formBuilder: FormBuilder,
-              private dialogRef: MatDialogRef<OrderRequestDialogComponent>) {
+              private dialogRef: MatDialogRef<OrderRequestDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) data: number) {
+    this.userId = data;
   }
 
   ngOnInit(): void {
@@ -28,7 +31,7 @@ export class OrderRequestDialogComponent implements OnInit {
         street: new FormControl(null, null),
         streetNumber: new FormControl(null, null),
         city: new FormControl(null, null),
-        zipCode: new FormControl(null, null),
+        zipcode: new FormControl(null, null),
         note: new FormControl(null, null)
     });
   }
@@ -53,6 +56,7 @@ export class OrderRequestDialogComponent implements OnInit {
   }
 
   private mapFormToModel() {
+    this.order.userId = this.userId;
     this.order.appointmentDate = this.orderRequestForm.get('appointmentDate')?.value;
     this.order.deliveryDate = this.orderRequestForm.get('deliveryDate')?.value;
     this.order.street = this.orderRequestForm.get('street')?.value;

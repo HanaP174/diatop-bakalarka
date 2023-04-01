@@ -3,6 +3,7 @@ import {AppService} from "./app.service";
 import {HttpClient} from "@angular/common/http";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {OrderRequestDialogComponent} from "./order-request-dialog/order-request-dialog.component";
+import {Order} from "./model/diatop.model";
 
 @Component({
   selector: 'app-root',
@@ -14,13 +15,12 @@ export class AppComponent {
   greetingUI = {id: '', content: ''};
   greetingResource = {id: '', content: ''};
 
+  private userId: number = 0;
+
   constructor(private app: AppService,
               private http: HttpClient,
               private dialog: MatDialog) {
-    http.get<{id: '', content: ''}>('/resource/test')
-        .subscribe(response => this.greetingResource = response);
-    http.get<{id: '', content: ''}>('/ui/resource')
-        .subscribe(response => this.greetingUI = response);
+    http.get<number>('/getUserId').subscribe(response => this.userId = response);
   }
 
   // todo
@@ -35,9 +35,15 @@ export class AppComponent {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
+    dialogConfig.data = this.userId;
 
     const dialogOutput = this.dialog.open(OrderRequestDialogComponent, dialogConfig);
 
-    dialogOutput.afterClosed().subscribe(data => console.log(data));
+    dialogOutput.afterClosed().subscribe(order => this.http.post<Order>("/resource/addOrder", order)
+        .subscribe({
+          error: error => {
+            console.log('Order error', error);
+          }
+        }));
   }
 }

@@ -51,6 +51,12 @@
       <groupId>redis.clients</groupId>
       <artifactId>jedis</artifactId>
     </dependency>
+      <dependency>
+          <groupId>com.diatop</groupId>
+          <artifactId>model</artifactId>
+          <version>0.0.1-SNAPSHOT</version>
+          <scope>compile</scope>
+      </dependency>
   </dependencies>
 
   <build>
