@@ -21,12 +21,13 @@ public class OrderService {
   private OrderRepository orderRepository;
 
   @Autowired
-  private UserRepository userRepository;
+  private EmailService emailService;
 
   public void addOrder(OrderDto orderDto) {
     Order order = mapOrderDtoToOrder(orderDto);
     if (order != null) {
       orderRepository.save(order).subscribe();
+      emailService.sendEmail(order);
       logger.info("Order was saved");
     }
   }
