@@ -7,4 +7,6 @@ export class UserDto {
   password: string = '';
   birthNumber: string = '';
   email: string = '';
+  firstName: string = '';
+  lastName: string = '';
 }

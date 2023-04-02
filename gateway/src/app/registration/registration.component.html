@@ -14,6 +14,22 @@
     </div>
     <div>
       <mat-form-field appearance="outline">
+        <mat-label>Meno</mat-label>
+        <!--        todo errors-->
+        <input matInput placeholder="meno" formControlName="firstName" required/>
+        <!--      <mat-error *ngIf="credentials.password">{{getErrorMessage()}}</mat-error>-->
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Priezvisko</mat-label>
+        <!--        todo errors-->
+        <input matInput placeholder="priezvisko" formControlName="lastName" required/>
+        <!--      <mat-error *ngIf="credentials.password">{{getErrorMessage()}}</mat-error>-->
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
         <mat-label>Heslo</mat-label>
 <!--         todo icon-->
         <input matInput type="hide" placeholder="heslo" formControlName="password" required/>

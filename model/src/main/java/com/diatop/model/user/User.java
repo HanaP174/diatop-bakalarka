@@ -17,6 +17,10 @@ public class User {
 
     private String password;
 
+    private String firstName;
+
+    private String lastName;
+
     private String birthNumber;
 
 
@@ -25,10 +29,13 @@ public class User {
     public User() {
     }
 
-    public User(String password, String birthNumber, String email, String role) {
-        this.password = password;
-        this.birthNumber = birthNumber;
+    public User(@NonNull String email, String password, String firstName, String lastName, String birthNumber,
+                String role) {
         this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthNumber = birthNumber;
         this.role = role;
     }
 
@@ -46,6 +53,22 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getBirthNumber() {
@@ -76,10 +99,12 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", password='" + password + '\'' +
-                ", birthNumber='" + birthNumber + '\'' +
                 ", email='" + email + '\'' +
-                ", role=" + role +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthNumber='" + birthNumber + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 }

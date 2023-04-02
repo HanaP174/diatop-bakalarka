@@ -57,5 +57,7 @@ public class UserService {
     user.setRole("USER");
     user.setBirthNumber(userDto.getBirthNumber());
     user.setPassword(passwordEncoder().encode(userDto.getPassword()));
+    user.setFirstName(userDto.getFirstName());
+    user.setLastName(userDto.getLastName());
   }
 }

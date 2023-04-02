@@ -23,7 +23,9 @@ export class RegistrationComponent implements OnInit {
     this.formRegistration = this.formBuilder.group({
       password: new FormControl(null, Validators.required),
       birthNumber: new FormControl(null, Validators.required),
-      email: new FormControl(null, Validators.required)
+      email: new FormControl(null, Validators.required),
+      firstName: new FormControl(null, Validators.required),
+      lastName: new FormControl(null, Validators.required)
     });
   }
 
@@ -48,5 +50,7 @@ export class RegistrationComponent implements OnInit {
     this.user.password = this.formRegistration.get('password')?.value;
     this.user.birthNumber = this.formRegistration.get('birthNumber')?.value;
     this.user.email = this.formRegistration.get('email')?.value;
+    this.user.firstName = this.formRegistration.get('firstName')?.value;
+    this.user.lastName = this.formRegistration.get('lastName')?.value;
   }
 }
