@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
@@ -28,6 +27,7 @@ public class EmailService {
 
     if (userOptional.isPresent()) {
       message.setTo("pilkova@topix.sk");
+      message.setFrom("diatop@diatop.sk");
       message.setSubject(getSubject(userOptional.get()));
       message.setText(getMessage(userOptional.get(), order));
 
