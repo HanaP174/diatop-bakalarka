@@ -3,14 +3,10 @@ package com.diatop.resource.service;
 import com.diatop.model.order.Order;
 import com.diatop.model.order.OrderDto;
 import com.diatop.model.order.OrderRepository;
-import com.diatop.model.user.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
-
-import java.util.Optional;
 
 @Service
 public class OrderService {
