@@ -2,8 +2,10 @@ package com.diatop.resource.controller;
 
 import com.diatop.model.document.DocumentDto;
 import com.diatop.model.order.OrderDto;
+import com.diatop.model.user.UserDto;
 import com.diatop.resource.service.DocumentService;
 import com.diatop.resource.service.OrderService;
+import com.diatop.resource.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,9 @@ public class ResourceController {
 
   @Autowired
   private DocumentService documentService;
+
+  @Autowired
+  private UserService userService;
 
     @PostMapping("/addOrder")
     public void addOrder(@RequestBody OrderDto orderDto) {
@@ -55,5 +60,11 @@ public class ResourceController {
   @PostMapping("/deleteDocument")
   public void deleteDocument(@RequestBody String uid) {
       documentService.deleteDocument(uid);
+  }
+
+  @RequestMapping("/getAllUsers")
+  @ResponseBody
+  public Mono<List<UserDto>> getAllUsers() {
+      return userService.getAllUsers();
   }
 }

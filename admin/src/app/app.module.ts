@@ -15,12 +15,16 @@ import {MatTableModule} from "@angular/material/table";
 import {MatIconModule} from "@angular/material/icon";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+import {UsersPreviewComponent} from "./users-preview/users-preview.component";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    DocumentsComponent
+    DocumentsComponent,
+    UsersPreviewComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,9 @@ import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
     MatTableModule,
     MatIconModule,
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
