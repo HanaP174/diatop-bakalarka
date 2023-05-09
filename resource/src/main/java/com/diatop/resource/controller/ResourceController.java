@@ -34,6 +34,12 @@ public class ResourceController {
       orderService.addOrder(orderDto);
     }
 
+    @RequestMapping("/getUsersOrders")
+    @ResponseBody
+    public Mono<List<OrderDto>> getAllUsersOrders(@RequestParam("userId") Long userId) {
+      return orderService.getUsersOrders(userId);
+    }
+
     @PostMapping("/uploadDocument")
     public DocumentDto uploadDocument(@RequestBody MultipartFile file) throws IOException {
       String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));

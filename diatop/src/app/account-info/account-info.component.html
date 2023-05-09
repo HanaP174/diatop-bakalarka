@@ -1,0 +1,33 @@
+<mat-toolbar>
+  <div class="title">
+    <mat-icon class="icon" svgIcon="diatop" (click)="onHomeClick()"></mat-icon>
+  </div>
+  <span class="toolbar"></span>
+  <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon"
+          [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-tab-group class="tabs">
+  <mat-tab label="Moje informácie">
+    <ng-template matTabContent>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Moje objednávky">
+    <ng-template matTabContent>
+      <orders
+          [orders]="orders">
+      </orders>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="onHomeClick()">
+    Hlavná stránka
+    <mat-icon color="primary">home</mat-icon>
+  </button>
+  <button mat-menu-item>
+    Odhlásiť sa
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-menu>

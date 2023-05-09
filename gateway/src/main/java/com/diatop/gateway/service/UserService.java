@@ -51,13 +51,33 @@ public class UserService {
       });
   }
 
+  public Mono<UserDto> getUser() {
+    return ReactiveSecurityContextHolder.getContext()
+      .map(SecurityContext::getAuthentication)
+      .map(Principal::getName)
+      .flatMap(username -> {
+        if (username != null) {
+          return userRepository.findUserByEmail(username)
+            .flatMap(this::mapUserToUserDto);
+        }
+        return Mono.empty();
+      });
+  }
+
   private void mapUserDtoToUser(UserDto userDto, User user) {
     user.setEmail(userDto.getEmail());
-    // todo this is not nice, enum will be better
     user.setRole("USER");
     user.setBirthNumber(userDto.getBirthNumber());
     user.setPassword(passwordEncoder().encode(userDto.getPassword()));
     user.setFirstName(userDto.getFirstName());
     user.setLastName(userDto.getLastName());
+  }
+
+  private Mono<UserDto> mapUserToUserDto(User user) {
+    if (user == null) {
+      return Mono.empty();
+    }
+    return Mono.just(
+      new UserDto(user.getId(), user.getBirthNumber(), user.getEmail(), user.getFirstName(), user.getLastName()));
   }
 }

@@ -1,0 +1,61 @@
+<div class="table">
+
+  <mat-form-field class="filter">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" #input>
+  </mat-form-field>
+
+  <table mat-table [dataSource]="ordersToDisplay" class="mat-elevation-z8">
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> No </th>
+      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="appointmentDate">
+      <th mat-header-cell *matHeaderCellDef> Dátum návštevy doktora </th>
+      <td mat-cell *matCellDef="let element"> {{element.appointmentDate}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="deliveryDate">
+      <th mat-header-cell *matHeaderCellDef> Dátum doručenia </th>
+      <td mat-cell *matCellDef="let element"> {{element.deliveryDate}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="street">
+      <th mat-header-cell *matHeaderCellDef> Ulica </th>
+      <td mat-cell *matCellDef="let element"> {{element.street == null ? '-' : element.street}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="streetNumber">
+      <th mat-header-cell *matHeaderCellDef> Číslo ulice </th>
+      <td mat-cell *matCellDef="let element"> {{element.streetNumber == null ? '-' : element.streetNumber}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="city">
+      <th mat-header-cell *matHeaderCellDef> Mesto </th>
+      <td mat-cell *matCellDef="let element"> {{element.city == null ? '-' : element.city}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="zipcode">
+      <th mat-header-cell *matHeaderCellDef> PSČ </th>
+      <td mat-cell *matCellDef="let element"> {{element.zipcode == null ? '-' : element.zipcode}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="note">
+      <th mat-header-cell *matHeaderCellDef> Poznámka </th>
+      <td mat-cell *matCellDef="let element"> {{element.note == null ? '-' : element.note}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="personalDelivery">
+      <th mat-header-cell *matHeaderCellDef> Osobné doručenie </th>
+      <td mat-cell *matCellDef="let element"> {{element.personalDelivery ? 'Áno' : 'Nie'}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">Žiadne dáta sa nezhodujú s "{{input.value}}"</td>
+    </tr>
+  </table>
+</div>

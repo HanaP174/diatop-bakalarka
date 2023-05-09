@@ -26,6 +26,8 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatDividerModule} from "@angular/material/divider";
 import {PdfViewerComponentAll} from "./pdf-viewer/all/pdf-viewer-all.component";
 import {AccountInfoComponent} from "./account-info/account-info.component";
+import {OrdersComponent} from "./account-info/orders/orders.component";
+import {MatTableModule} from "@angular/material/table";
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import {AccountInfoComponent} from "./account-info/account-info.component";
     HomeComponent,
     PdfViewerComponentSingle,
     PdfViewerComponentAll,
-    AccountInfoComponent
+    AccountInfoComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,8 @@ import {AccountInfoComponent} from "./account-info/account-info.component";
     PdfViewerModule,
     NgxExtendedPdfViewerModule,
     MatSidenavModule,
-    MatDividerModule
+    MatDividerModule,
+    MatTableModule
   ],
   providers: [AppService],
   bootstrap: [AppComponent],

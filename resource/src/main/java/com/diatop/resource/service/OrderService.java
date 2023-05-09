@@ -7,6 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
+
+import java.util.Comparator;
+import java.util.List;
 
 @Service
 public class OrderService {
@@ -28,6 +32,13 @@ public class OrderService {
     }
   }
 
+  public Mono<List<OrderDto>> getUsersOrders(Long userId) {
+    return orderRepository.findAllByUserId(userId)
+            .map(this::mapOrderToOrderDto)
+            .sort(Comparator.comparing(OrderDto::getDeliveryDate))
+            .collectList();
+  }
+
   private Order mapOrderDtoToOrder(OrderDto orderDto) {
     if (orderDto.getUserId() == null) {
       logger.warn("Order wasn't created");
@@ -46,5 +57,19 @@ public class OrderService {
     order.setPersonalDelivery(orderDto.getPersonalDelivery());
 
     return order;
+  }
+
+  private OrderDto mapOrderToOrderDto(Order order) {
+    OrderDto orderDto = new OrderDto();
+    orderDto.setUserId(order.getUserId());
+    orderDto.setCity(order.getCity());
+    orderDto.setStreet(order.getStreet());
+    orderDto.setStreetNumber(orderDto.getStreetNumber());
+    orderDto.setZipcode(order.getZipcode());
+    orderDto.setAppointmentDate(order.getAppointmentDate());
+    orderDto.setDeliveryDate(order.getDeliveryDate());
+    orderDto.setNote(order.getNote());
+    orderDto.setPersonalDelivery(order.getPersonalDelivery());
+    return orderDto;
   }
 }

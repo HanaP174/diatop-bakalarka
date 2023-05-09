@@ -2,6 +2,8 @@ package com.diatop.model.user;
 
 public class UserDto {
 
+  private Long id;
+
   private String password;
 
   private String birthNumber;
@@ -13,10 +15,25 @@ public class UserDto {
   private String lastName;
 
   public UserDto(String birthNumber, String email, String firstName, String lastName) {
-      this.birthNumber = birthNumber;
-      this.email = email;
-      this.firstName = firstName;
-      this.lastName = lastName;
+    this.birthNumber = birthNumber;
+    this.email = email;
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+  public UserDto(Long id, String birthNumber, String email, String firstName, String lastName) {
+    this.id = id;
+    this.birthNumber = birthNumber;
+    this.email = email;
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public String getPassword() {

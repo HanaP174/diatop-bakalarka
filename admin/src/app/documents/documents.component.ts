@@ -14,12 +14,12 @@ export class DocumentToDisplay extends Document {
 })
 export class DocumentsComponent implements OnInit {
 
+  documentsToDisplay = new MatTableDataSource<DocumentToDisplay>([]);
+  readonly displayedColumns: string[] = ['position', 'name', 'creationTimestamp', 'action'];
+
   constructor(private httpClient: HttpClient,
               private _snackBar: MatSnackBar) {
   }
-
-  documentsToDisplay = new MatTableDataSource<DocumentToDisplay>([]);
-  readonly displayedColumns: string[] = ['position', 'name', 'creationTimestamp', 'action'];
 
   ngOnInit(): void {
     this.initDocuments();

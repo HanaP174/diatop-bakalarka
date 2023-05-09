@@ -15,3 +15,12 @@ export class Document {
   name: string = '';
   encodedFile: string = '';
 }
+
+export class User {
+  id: number = 1;
+  password: string = '';
+  birthNumber: string = '';
+  email: string = '';
+  firstName: string = '';
+  lastName: string = '';
+}

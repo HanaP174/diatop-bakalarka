@@ -26,6 +26,12 @@ public class GatewayController {
     return userPrincipal;
   }
 
+  @RequestMapping("/getUser")
+  @ResponseBody
+  public Mono<UserDto> getUser() {
+    return userService.getUser();
+  }
+
   @RequestMapping("/getUserId")
   @ResponseBody
   public Mono<Long> getUserId() {
