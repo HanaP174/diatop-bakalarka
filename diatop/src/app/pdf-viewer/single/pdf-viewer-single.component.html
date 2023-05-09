@@ -1,0 +1,13 @@
+<ng-container *ngIf="noPdfToDisplay">
+  <div class="message">
+    Momentálne neexistujú žiadne články na zobrazenie.
+  </div>
+</ng-container>
+
+<ng-container *ngIf="!noPdfToDisplay">
+  <ngx-extended-pdf-viewer *ngIf="pdfDocuments[0].file" [base64Src]="pdfDocuments[0].file"
+                           [showToolbar]="false"
+                           [showBorders]="false"
+                           [backgroundColor]="'#ffffff'">
+  </ngx-extended-pdf-viewer>
+</ng-container>

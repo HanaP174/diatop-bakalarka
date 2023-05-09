@@ -10,15 +10,18 @@ public class DocumentDto {
 
   private byte[] file;
 
+  private String encodedFile;
+
   private String name;
 
   private LocalDate creationTimestamp;
 
-  public DocumentDto(String uid, byte[] file, String name, LocalDate creationTimestamp) {
+  public DocumentDto(String uid, byte[] file, String name, LocalDate creationTimestamp, String encodedFile) {
     this.uid = uid == null ? UUID.randomUUID().toString() : uid;
     this.file = file;
     this.name = name;
     this.creationTimestamp = creationTimestamp;
+    this.encodedFile = encodedFile;
   }
 
   public DocumentDto(byte[] file, String name, LocalDate creationTimestamp) {
@@ -42,6 +45,14 @@ public class DocumentDto {
 
   public void setFile(byte[] file) {
     this.file = file;
+  }
+
+  public String getEncodedFile() {
+    return encodedFile;
+  }
+
+  public void setEncodedFile(String encodedFile) {
+    this.encodedFile = encodedFile;
   }
 
   public String getName() {

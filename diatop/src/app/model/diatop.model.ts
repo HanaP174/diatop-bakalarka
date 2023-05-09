@@ -9,3 +9,9 @@ export class Order {
   note: string = '';
   personalDelivery: boolean = false;
 }
+
+export class Document {
+  uid: string = '';
+  name: string = '';
+  encodedFile: string = '';
+}

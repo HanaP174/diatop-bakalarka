@@ -18,14 +18,23 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {HomeComponent} from "./home/home.component";
-import {RouterOutlet} from "@angular/router";
 import {AppRoutingModule} from "./app-routing.module";
+import {PdfViewerModule} from "ng2-pdf-viewer";
+import {PdfViewerComponentSingle} from "./pdf-viewer/single/pdf-viewer-single.component";
+import {NgxExtendedPdfViewerModule} from "ngx-extended-pdf-viewer";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatDividerModule} from "@angular/material/divider";
+import {PdfViewerComponentAll} from "./pdf-viewer/all/pdf-viewer-all.component";
+import {AccountInfoComponent} from "./account-info/account-info.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     OrderRequestDialogComponent,
-    HomeComponent
+    HomeComponent,
+    PdfViewerComponentSingle,
+    PdfViewerComponentAll,
+    AccountInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +53,11 @@ import {AppRoutingModule} from "./app-routing.module";
     FormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    AppRoutingModule
+    AppRoutingModule,
+    PdfViewerModule,
+    NgxExtendedPdfViewerModule,
+    MatSidenavModule,
+    MatDividerModule
   ],
   providers: [AppService],
   bootstrap: [AppComponent],

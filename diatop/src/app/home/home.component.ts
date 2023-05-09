@@ -1,28 +1,39 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {AppService} from "../app.service";
 import {HttpClient} from "@angular/common/http";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {OrderRequestDialogComponent} from "../order-request-dialog/order-request-dialog.component";
-import {Order} from "../model/diatop.model";
+import {Document, Order} from "../model/diatop.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'home',
   templateUrl: './home.component.html'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
+  documents: Document[] = [];
+  allPdf = false;
   private userId: number = 0;
 
   constructor(private app: AppService,
               private http: HttpClient,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private router: Router) {
     http.get<number>('/getUserId').subscribe(response => this.userId = response);
+  }
+
+  ngOnInit() {
+    this.http.get<Document[]>('/resource/getAllDocuments').subscribe(response => {
+      this.documents = response;
+    })
   }
 
   // todo
   logout() {
     this.http.post('/logout', {}).subscribe(() => {
       this.app.authenticated = false;
+      this.router.navigateByUrl('/');
     });
   }
 
@@ -41,5 +52,13 @@ export class HomeComponent {
             console.log('Order error', error);
           }
         }));
+  }
+
+  openAccountInfo() {
+    this.router.navigateByUrl('/account');
+  }
+
+  changePdfView(index: number) {
+    this.allPdf = index === 1;
   }
 }

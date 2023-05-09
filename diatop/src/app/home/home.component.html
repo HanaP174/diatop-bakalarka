@@ -11,16 +11,20 @@
 <div class="order">
   <mat-icon (click)="openOrderRequestDialog()">add_alert</mat-icon>
 </div>
-<mat-tab-group class="tabs">
+<mat-tab-group class="tabs" (selectedIndexChange)="changePdfView($event)">
   <mat-tab label="Najnovší príspevok">
-    <my-pdf-viewer-single
-            [documents]="documents">
-    </my-pdf-viewer-single>
+    <ng-template matTabContent>
+      <my-pdf-viewer-single *ngIf="!allPdf"
+          [documents]="documents">
+      </my-pdf-viewer-single>
+    </ng-template>
   </mat-tab>
   <mat-tab label="Všetky príspevky">
-    <my-pdf-viewer-all
-            [documents]="documents">
-    </my-pdf-viewer-all>
+    <ng-template matTabContent>
+      <my-pdf-viewer-all *ngIf="allPdf"
+          [documents]="documents">
+      </my-pdf-viewer-all>
+    </ng-template>
   </mat-tab>
 </mat-tab-group>
 <mat-menu #menu="matMenu">

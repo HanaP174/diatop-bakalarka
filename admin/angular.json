@@ -29,7 +29,7 @@
               "src/styles.css",
               "src/app/home/home.component.scss",
               "src/app/documents/documents.component.scss",
-              "src/app/users-preview/users-preview.scss"
+              "src/app/users-preview/users-preview.component.scss"
             ],
             "scripts": []
           },

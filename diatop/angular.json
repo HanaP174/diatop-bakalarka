@@ -22,13 +22,21 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/ngx-extended-pdf-viewer/assets/",
+                "output": "/assets/"
+              }
             ],
             "styles": [
               "src/custom-theme.scss",
               "src/styles.css",
               "src/app/home/home.component.scss",
-              "src/app/order-request-dialog/order-request-dialog.component.scss"
+              "src/app/order-request-dialog/order-request-dialog.component.scss",
+              "src/app/pdf-viewer/all/pdf-viewer-all.component.scss",
+              "src/app/pdf-viewer/single/pdf-viewer-single.component.scss",
+              "src/app/account-info/account-info.component.scss"
             ],
             "scripts": []
           },
@@ -37,8 +45,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "1mb",
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",

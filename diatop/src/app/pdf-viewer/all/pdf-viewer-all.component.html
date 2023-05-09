@@ -1,0 +1,24 @@
+<ng-container *ngIf="noPdfToDisplay">
+  <div class="message">
+    Momentálne neexistujú žiadne články na zobrazenie.
+  </div>
+</ng-container>
+
+<ng-container *ngIf="!noPdfToDisplay">
+  <mat-drawer-container class="example-container">
+    <mat-drawer mode="side" opened>
+      <ng-container *ngFor="let document of pdfDocuments; index as index">
+        <button mat-button color="primary" (click)="pdfDocumentToDisplay = document">{{document.name}}</button>
+        <mat-divider *ngIf="index != pdfDocuments.length - 1"></mat-divider>
+      </ng-container>
+    </mat-drawer>
+    <mat-drawer-content>
+      <ngx-extended-pdf-viewer *ngIf="pdfDocumentToDisplay.file"
+                               [base64Src]="pdfDocumentToDisplay.file"
+                               [showToolbar]="false"
+                               [showBorders]="false"
+                               [backgroundColor]="'#ffffff'">
+      </ngx-extended-pdf-viewer>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</ng-container>

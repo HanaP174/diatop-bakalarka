@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+import java.util.Base64;
 import java.util.Comparator;
 import java.util.List;
 
@@ -37,6 +38,8 @@ public class DocumentService {
   }
 
   private DocumentDto mapDocument(Document document) {
-    return new DocumentDto(document.getUid(), document.getFile(), document.getName(), document.getCreationTimestamp());
+    String base64Pdf = Base64.getEncoder().encodeToString(document.getFile());
+    return new DocumentDto(document.getUid(), document.getFile(), document.getName(), document.getCreationTimestamp(),
+            base64Pdf);
   }
 }
