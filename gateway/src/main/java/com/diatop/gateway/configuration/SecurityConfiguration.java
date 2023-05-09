@@ -37,7 +37,7 @@ public class SecurityConfiguration {
       .and()
       .authorizeExchange()
       .pathMatchers("/", "/index.html", "/registration", "/login", "/*.js", "/*.css", "/favicon.ico",
-        "/*.map").permitAll()
+        "/assets/diatop.svg", "/*.map").permitAll()
       .pathMatchers(HttpMethod.POST, "/addUser").permitAll()
       .anyExchange().authenticated()
       .and()
