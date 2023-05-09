@@ -1,5 +1,15 @@
 login {
 
+  .icon-wrapper {
+    text-align: center;
+    padding-top: 4rem;
+  }
+
+  .icon {
+    height: 7rem;
+    width: 6rem;
+  }
+
   .login-form-wrapper {
     height: 60%;
     display: flex;
