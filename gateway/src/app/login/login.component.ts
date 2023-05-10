@@ -10,8 +10,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 export class LoginComponent implements OnInit {
   title = 'client';
   formLogin: FormGroup = new FormGroup({});
-
   credentials: Credentials = new Credentials();
+  hide = true;
 
   constructor(private app: LoginService,
               private formBuilder: FormBuilder) {
@@ -22,13 +22,16 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.formLogin = this.formBuilder.group({
-      username: new FormControl(null, Validators.required),
-      password: new FormControl(null, Validators.required)
+      username: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', Validators.required)
     });
   }
 
 
   login() {
+    if (this.formLogin.invalid) {
+      return;
+    }
     this.credentials.username = this.formLogin.get('username')?.value;
     this.credentials.password = this.formLogin.get('password')?.value;
     this.app.authenticate(this.credentials, () => {
@@ -38,15 +41,5 @@ export class LoginComponent implements OnInit {
   }
 
   isAuthenticated() { return this.app.authenticated; }
-
-  getErrorMessage() {
-    if (this.formLogin.controls['username'].errors?.hasOwnProperty("required")) {
-      return 'Uživateľské meno je povinné';
-    } else if (this.formLogin.controls['password'].errors?.hasOwnProperty("required")) {
-      return 'Heslo je povinné';
-    } else {
-      return '';
-    }
-  }
 
 }

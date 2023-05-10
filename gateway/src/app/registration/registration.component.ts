@@ -13,6 +13,7 @@ export class RegistrationComponent implements OnInit {
   user: UserDto = new UserDto();
   formRegistration: FormGroup = new FormGroup({});
   userExists = false;
+  hide = true;
 
   constructor(private formBuilder: FormBuilder,
               private http: HttpClient,
@@ -21,11 +22,11 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.formRegistration = this.formBuilder.group({
-      password: new FormControl(null, Validators.required),
-      birthNumber: new FormControl(null, Validators.required),
-      email: new FormControl(null, Validators.required),
-      firstName: new FormControl(null, Validators.required),
-      lastName: new FormControl(null, Validators.required)
+      password: new FormControl('', Validators.required),
+      birthNumber: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      firstName: new FormControl('', Validators.required),
+      lastName: new FormControl('', Validators.required)
     });
   }
 

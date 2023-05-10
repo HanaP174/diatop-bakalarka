@@ -3,25 +3,31 @@
 </div>
 <div class="login-form-wrapper">
   <form [formGroup]="formLogin" (submit)="login()">
-    <div>
+    <div class="login-input">
       <mat-form-field appearance="outline">
+        <mat-error *ngIf="formLogin.get('username')?.hasError('required')">Uživateľské meno je povinné</mat-error>
+        <mat-error *ngIf="formLogin.get('username')?.hasError('email')">Uživateľské meno nemá tvar emailovej adresy</mat-error>
         <mat-label>Uživateľské meno</mat-label>
         <input matInput placeholder="meno" formControlName="username" required/>
-        <mat-error *ngIf="credentials.username">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
-    <div>
+    <div class="login-input">
       <mat-form-field appearance="outline">
+        <mat-error *ngIf="formLogin.get('password')?.hasError('required')">Heslo je povinné</mat-error>
         <mat-label>Heslo</mat-label>
-        <input type="hide" matInput placeholder="heslo" formControlName="password" required/>
-        <mat-error *ngIf="credentials.password">{{getErrorMessage()}}</mat-error>
+        <input [type]="hide ? 'password' : 'text'" matInput placeholder="heslo" formControlName="password" required/>
+        <button mat-icon-button matSuffix (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
       </mat-form-field>
     </div>
     <div class="registration-link">
       <a mat-button routerLink="/registration">Registrovať</a>
     </div>
     <div class="login-button">
-      <button mat-raised-button color="primary">Prihlásiť</button>
+      <button mat-raised-button color="primary" [disabled]="!formLogin.valid">Prihlásiť</button>
     </div>
   </form>
 </div>

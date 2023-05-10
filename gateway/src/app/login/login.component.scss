@@ -1,5 +1,13 @@
 login {
 
+  .login-input {
+    padding-bottom: 2rem;
+  }
+
+  mat-form-field {
+    width: 15rem;
+  }
+
   .icon-wrapper {
     text-align: center;
     padding-top: 4rem;

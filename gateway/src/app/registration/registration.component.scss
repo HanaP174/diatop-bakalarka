@@ -2,8 +2,17 @@ registration {
   .registration-form-wrapper {
     height: 100%;
     display: flex;
+    padding-top: 3rem;
     justify-content: center;
-    align-items: center;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  mat-card {
+    width: 35rem;
   }
 
   .form {
@@ -17,5 +26,20 @@ registration {
     align-items: center;
     color: red;
     padding-bottom: 2rem;
+  }
+
+  mat-form-field {
+    width: 15rem;
+    padding-bottom: 2rem;
+  }
+
+  .icon-wrapper {
+    text-align: center;
+    padding-top: 4rem;
+  }
+
+  .icon {
+    height: 3rem;
+    width: 3rem;
   }
 }
