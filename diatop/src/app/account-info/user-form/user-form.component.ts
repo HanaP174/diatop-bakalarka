@@ -29,7 +29,7 @@ export class UserFormComponent implements OnChanges {
   onUserChange() {
     if (this.hasUserDataChanges()) {
       this.mapUserFromForm();
-      this.httpClient.post<User>('/resource/changeUser', this.user).subscribe({
+      this.httpClient.post<User>('/resource/updateUser', this.user).subscribe({
         error: error => {
           console.log('change user error', error);
         },

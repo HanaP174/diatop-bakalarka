@@ -32,7 +32,7 @@ public class UserService {
     return new UserDto(user.getBirthNumber(), user.getEmail(), user.getFirstName(), user.getLastName());
   }
 
-  public Mono<User> changeUser(UserDto userDto) {
+  public Mono<User> updateUser(UserDto userDto) {
     return userRepository.findUserById(userDto.getId()).flatMap(existingUser -> {
       existingUser.setFirstName(userDto.getFirstName());
       existingUser.setLastName(userDto.getLastName());
