@@ -11,6 +11,9 @@
 <mat-tab-group class="tabs">
   <mat-tab label="Moje informácie">
     <ng-template matTabContent>
+      <user-form
+          [user]="user">
+      </user-form>
     </ng-template>
   </mat-tab>
   <mat-tab label="Moje objednávky">

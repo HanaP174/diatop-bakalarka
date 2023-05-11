@@ -2,6 +2,7 @@ package com.diatop.resource.controller;
 
 import com.diatop.model.document.DocumentDto;
 import com.diatop.model.order.OrderDto;
+import com.diatop.model.user.User;
 import com.diatop.model.user.UserDto;
 import com.diatop.resource.service.DocumentService;
 import com.diatop.resource.service.OrderService;
@@ -72,5 +73,15 @@ public class ResourceController {
   @ResponseBody
   public Mono<List<UserDto>> getAllUsers() {
       return userService.getAllUsers();
+  }
+
+  @PostMapping("/changeUser")
+  public Mono<Boolean> changeUser(@RequestBody UserDto userDto) {
+    return userService.changeUser(userDto).flatMap(user -> {
+      if (user == null) {
+        return Mono.just(Boolean.FALSE);
+      }
+      return Mono.just(Boolean.TRUE);
+    });
   }
 }

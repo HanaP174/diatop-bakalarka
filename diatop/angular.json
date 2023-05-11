@@ -37,7 +37,8 @@
               "src/app/pdf-viewer/all/pdf-viewer-all.component.scss",
               "src/app/pdf-viewer/single/pdf-viewer-single.component.scss",
               "src/app/account-info/account-info.component.scss",
-              "src/app/account-info/orders/orders.component.scss"
+              "src/app/account-info/orders/orders.component.scss",
+              "src/app/account-info/user-form/user-form.component.scss"
             ],
             "scripts": []
           },

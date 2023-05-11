@@ -1,0 +1,67 @@
+<div class="user-form-wrapper">
+  <form class="form" [formGroup]="userForm" (submit)="onUserChange()">
+    <mat-card>
+      <mat-card-header>
+        <div mat-card-avatar>
+          <mat-icon>edit</mat-icon>
+        </div>
+        <mat-card-title>Zmena údajov</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input type="hide" matInput placeholder="email" formControlName="email" required/>
+              <mat-error *ngIf="userForm.get('email')?.hasError('required')">Email je povinný</mat-error>
+              <mat-error *ngIf="userForm.get('email')?.hasError('email')">Email musí mať tvar emailu</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label>Meno</mat-label>
+              <input matInput placeholder="meno" formControlName="firstName" required/>
+              <mat-error *ngIf="userForm.get('firstName')?.hasError('required')">Krstné meno je povinné</mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label>Priezvisko</mat-label>
+              <input matInput placeholder="priezvisko" formControlName="lastName" required/>
+              <mat-error *ngIf="userForm.get('lastName')?.hasError('required')">Priezvisko je povinné</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label>Heslo</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" placeholder="heslo" formControlName="password"
+                  [value]="user.password"/>
+              <button mat-icon-button matSuffix (click)="hide = !hide"
+                      [attr.aria-label]="'Hide password'"
+                      [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="userForm.get('password')?.hasError('required')">Heslo je povinné</mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label>Rodné číslo</mat-label>
+              <input matInput placeholder="rodné číslo" formControlName="birthNumber" required/>
+              <mat-error *ngIf="userForm.get('birthNumber')?.hasError('required')">Rodné číslo je povinné</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <div class="login-button">
+          <button mat-raised-button color="primary" [disabled]="!userForm.valid">Uložiť</button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

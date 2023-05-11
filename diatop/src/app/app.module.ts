@@ -28,6 +28,9 @@ import {PdfViewerComponentAll} from "./pdf-viewer/all/pdf-viewer-all.component";
 import {AccountInfoComponent} from "./account-info/account-info.component";
 import {OrdersComponent} from "./account-info/orders/orders.component";
 import {MatTableModule} from "@angular/material/table";
+import {UserFormComponent} from "./account-info/user-form/user-form.component";
+import {MatCardModule} from "@angular/material/card";
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -37,7 +40,8 @@ import {MatTableModule} from "@angular/material/table";
     PdfViewerComponentSingle,
     PdfViewerComponentAll,
     AccountInfoComponent,
-    OrdersComponent
+    OrdersComponent,
+    UserFormComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +65,9 @@ import {MatTableModule} from "@angular/material/table";
     NgxExtendedPdfViewerModule,
     MatSidenavModule,
     MatDividerModule,
-    MatTableModule
+    MatTableModule,
+    MatCardModule,
+    MatSnackBarModule
   ],
   providers: [AppService],
   bootstrap: [AppComponent],
