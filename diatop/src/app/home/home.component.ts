@@ -1,5 +1,4 @@
 import {Component, OnInit} from "@angular/core";
-import {AppService} from "../app.service";
 import {HttpClient} from "@angular/common/http";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {OrderRequestDialogComponent} from "../order-request-dialog/order-request-dialog.component";
@@ -16,8 +15,7 @@ export class HomeComponent implements OnInit {
   allPdf = false;
   private userId: number = 0;
 
-  constructor(private app: AppService,
-              private http: HttpClient,
+  constructor(private http: HttpClient,
               private dialog: MatDialog,
               private router: Router) {
     http.get<number>('/getUserId').subscribe(response => this.userId = response);
@@ -32,7 +30,6 @@ export class HomeComponent implements OnInit {
   // todo
   logout() {
     this.http.post('/logout', {}).subscribe(() => {
-      this.app.authenticated = false;
       this.router.navigateByUrl('/');
     });
   }

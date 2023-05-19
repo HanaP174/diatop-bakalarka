@@ -1,5 +1,5 @@
-import {Component, Input, OnChanges, OnInit} from "@angular/core";
-import {PdfDocument, PdfViewerClass} from "../pdf-viewer.class";
+import {Component, Input, OnChanges} from "@angular/core";
+import {PdfViewerClass} from "../pdf-viewer.class";
 import {Document} from "../../model/diatop.model";
 
 @Component({

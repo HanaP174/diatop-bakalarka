@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import {HttpClientModule} from "@angular/common/http";
-import {AppService} from "./app.service";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
@@ -30,7 +29,7 @@ import {OrdersComponent} from "./account-info/orders/orders.component";
 import {MatTableModule} from "@angular/material/table";
 import {UserFormComponent} from "./account-info/user-form/user-form.component";
 import {MatCardModule} from "@angular/material/card";
-import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -69,7 +68,6 @@ import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
     MatCardModule,
     MatSnackBarModule
   ],
-  providers: [AppService],
   bootstrap: [AppComponent],
   entryComponents: [OrderRequestDialogComponent]
 })
