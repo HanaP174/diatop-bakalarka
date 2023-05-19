@@ -39,6 +39,7 @@ public class SecurityConfiguration {
       .pathMatchers("/", "/index.html", "/registration", "/login", "/*.js", "/*.css", "/favicon.ico",
         "/assets/diatop.svg", "/*.map").permitAll()
       .pathMatchers(HttpMethod.POST, "/addUser").permitAll()
+      .pathMatchers(HttpMethod.GET, "/user").permitAll()
       .anyExchange().authenticated()
       .and()
       .formLogin().disable()
