@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UserDetailsRepositoryReactiveAuthenticationManager;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
@@ -19,6 +20,8 @@ import org.springframework.security.web.server.csrf.CookieServerCsrfTokenReposit
 import org.springframework.security.web.server.util.matcher.NegatedServerWebExchangeMatcher;
 import org.springframework.security.web.server.util.matcher.ServerWebExchangeMatchers;
 import org.springframework.session.config.annotation.web.server.EnableSpringWebSession;
+
+import java.net.URI;
 
 @Configuration
 @EnableWebFluxSecurity
@@ -43,6 +46,13 @@ public class SecurityConfiguration {
       .anyExchange().authenticated()
       .and()
       .formLogin().disable()
+      .logout()
+      .logoutUrl("/logout")
+      .logoutSuccessHandler((exchange, authentication) -> {
+        exchange.getExchange().getResponse().setStatusCode(HttpStatus.OK);
+        return exchange.getExchange().getResponse().setComplete();
+      })
+      .and()
       .authenticationManager(authenticationManager())
       .csrf().disable()
       .securityContextRepository(webSessionServerSecurityContextRepository());

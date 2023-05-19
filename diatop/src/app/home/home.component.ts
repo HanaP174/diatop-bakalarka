@@ -27,10 +27,9 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  // todo
   logout() {
     this.http.post('/logout', {}).subscribe(() => {
-      this.router.navigateByUrl('/');
+      window.location.href = '/';
     });
   }
 

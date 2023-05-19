@@ -1,4 +1,5 @@
 import {Component} from "@angular/core";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'home',
@@ -6,4 +7,11 @@ import {Component} from "@angular/core";
 })
 export class HomeComponent {
 
+  constructor(private http: HttpClient) {}
+
+  logout() {
+    this.http.post('/logout', {}).subscribe(() => {
+      window.location.href = '/';
+    });
+  }
 }

@@ -3,10 +3,10 @@
     <span>Administrátor</span>
   </div>
   <span class="toolbar"></span>
-<!--  <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon"-->
-<!--          [matMenuTriggerFor]="menu">-->
-<!--    <mat-icon>menu</mat-icon>-->
-<!--  </button>-->
+  <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon"
+          [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
 </mat-toolbar>
 <mat-tab-group class="tabs">
   <mat-tab label="Súbory">
@@ -16,3 +16,9 @@
     <users-preview></users-preview>
   </mat-tab>
 </mat-tab-group>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="logout()">
+    Odhlásiť sa
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-menu>
