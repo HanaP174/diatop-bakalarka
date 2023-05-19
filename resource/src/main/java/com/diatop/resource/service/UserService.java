@@ -38,7 +38,7 @@ public class UserService {
       existingUser.setLastName(userDto.getLastName());
       existingUser.setEmail(userDto.getEmail());
       existingUser.setBirthNumber(userDto.getBirthNumber());
-      if (userDto.getPassword() != null) {
+      if (userDto.getPassword() != null && !userDto.getPassword().isEmpty() && !userDto.getPassword().isBlank()) {
         existingUser.setPassword(passwordEncoder().encode(userDto.getPassword()));
       }
       return userRepository.save(existingUser);
