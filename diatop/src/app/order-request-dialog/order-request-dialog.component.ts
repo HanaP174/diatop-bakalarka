@@ -27,7 +27,7 @@ export class OrderRequestDialogComponent implements OnInit {
     this.minDeliveryDate.setDate(new Date().getDate() + 1);
     this.orderRequestForm = this.formBuilder.group({
         appointmentDate: new FormControl(null, Validators.required),
-        deliveryDate: new FormControl(null, Validators.required), //todo allow only some dates not weekends and not past
+        deliveryDate: new FormControl(null, Validators.required),
         street: new FormControl(null, null),
         streetNumber: new FormControl(null, null),
         city: new FormControl(null, null),
@@ -53,6 +53,21 @@ export class OrderRequestDialogComponent implements OnInit {
   save() {
     this.mapFormToModel();
     this.dialogRef.close(this.order);
+  }
+
+  onDifferentAddress(isDifferent: boolean) {
+    this.differentAddress = isDifferent;
+    if (this.differentAddress) {
+      this.orderRequestForm.get('street')?.addValidators(Validators.required);
+      this.orderRequestForm.get('streetNumber')?.addValidators(Validators.required);
+      this.orderRequestForm.get('city')?.addValidators(Validators.required);
+      this.orderRequestForm.get('zipcode')?.addValidators(Validators.required);
+    } else {
+      this.orderRequestForm.get('street')?.removeValidators(Validators.required);
+      this.orderRequestForm.get('streetNumber')?.removeValidators(Validators.required);
+      this.orderRequestForm.get('city')?.removeValidators(Validators.required);
+      this.orderRequestForm.get('zipcode')?.removeValidators(Validators.required);
+    }
   }
 
   private mapFormToModel() {

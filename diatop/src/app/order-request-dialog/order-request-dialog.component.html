@@ -5,14 +5,16 @@
   <div class="order-wrapper">
     <div class="row top-padding line-wrapper">
       <mat-form-field class="date-picker" appearance="outline">
-          <mat-label>Dátum návštevy</mat-label>
+        <mat-error *ngIf="orderRequestForm.get('appointmentDate')?.hasError('required')">Dátum návštevy doktora je povinný</mat-error>
+        <mat-label>Dátum návštevy</mat-label>
           <input matInput formControlName="appointmentDate" [matDatepicker]="appointmentPicker" required>
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matIconSuffix [for]="appointmentPicker"></mat-datepicker-toggle>
           <mat-datepicker #appointmentPicker></mat-datepicker>
       </mat-form-field>
       <mat-form-field class="date-picker" appearance="outline">
-          <mat-label>Dátum doručenia</mat-label>
+        <mat-error *ngIf="orderRequestForm.get('deliveryDate')?.hasError('required')">Dátum doručenia je povinný</mat-error>
+        <mat-label>Dátum doručenia</mat-label>
           <input matInput formControlName="deliveryDate"
                  [matDatepickerFilter]="weekendsDatesFilter"
                  [matDatepicker]="deliveryPicker"
@@ -27,16 +29,18 @@
 
     <div class="top-padding">
       <mat-checkbox [checked]="differentAddress"
-                    (change)="differentAddress = $event.checked">Iná adresa doručenia</mat-checkbox>
+                    (change)="onDifferentAddress($event.checked)">Iná adresa doručenia</mat-checkbox>
     </div>
 
     <ng-container *ngIf="differentAddress">
       <div class="row line-wrapper top-padding">
         <mat-form-field class="col-sm-30" appearance="outline">
+          <mat-error *ngIf="orderRequestForm.get('street')?.hasError('required')">Ulica je povinná</mat-error>
           <mat-label>Ulica</mat-label>
           <input matInput formControlName="street" [required]="differentAddress">
         </mat-form-field>
         <mat-form-field class="col-sm-30" appearance="outline">
+          <mat-error *ngIf="orderRequestForm.get('streetNumber')?.hasError('required')">Číslo ulice je povinné</mat-error>
           <mat-label>Číslo ulice</mat-label>
           <input matInput formControlName="streetNumber" [required]="differentAddress">
         </mat-form-field>
@@ -44,10 +48,12 @@
 
       <div class="row line-wrapper top-padding">
         <mat-form-field class="col-sm-30" appearance="outline">
+          <mat-error *ngIf="orderRequestForm.get('zipcode')?.hasError('required')">Mesto je povinné</mat-error>
           <mat-label>Mesto</mat-label>
           <input matInput formControlName="city" [required]="differentAddress">
         </mat-form-field>
         <mat-form-field class="col-sm-30" appearance="outline">
+          <mat-error *ngIf="orderRequestForm.get('zipcode')?.hasError('required')">PSČ je povinné</mat-error>
           <mat-label>PSČ</mat-label>
           <input matInput formControlName="zipcode" [required]="differentAddress">
         </mat-form-field>
@@ -76,5 +82,5 @@
 
 <mat-dialog-actions class="action-buttons">
     <button mat-raised-button (click)="close()">Zrušiť</button>
-    <button mat-raised-button color="primary" (click)="save()">Uložiť</button>
+    <button mat-raised-button color="primary" [disabled]="!orderRequestForm.valid" (click)="save()">Uložiť</button>
 </mat-dialog-actions>
