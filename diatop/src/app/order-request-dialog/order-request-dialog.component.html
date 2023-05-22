@@ -73,7 +73,7 @@
     <div class="top-padding line-wrapper row">
       <mat-form-field class="note" appearance="outline">
         <mat-label>Poznámka</mat-label>
-        <textarea matInput placeholder="Poznámka" formControlName="note"></textarea>
+        <textarea matInput [maxlength]="200" placeholder="Poznámka" formControlName="note"></textarea>
       </mat-form-field>
     </div>
   </div>
